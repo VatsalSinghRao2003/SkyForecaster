@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <link
+      rel="stylesheet"
+      href="style/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://egesiapres.github.io/weather-app/style/weather-icons.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://egesiapres.github.io/weather-app/style/weather-icons-wind.min.css"
+    />
+
+    <link
+      rel="icon"
+      sizes="72x72"
+      href="https://egesiapres.github.io/weather-app/img/partly-cloudy-day.svg"
+      type="image/svg"
+    />
+
+    <title>Weather app</title>
+  </head>
+
+  <body class="container x-center y-center m-0">
+    <div
+      id="content"
+      class="container col-direction"
+    >
+      <header class="container col-direction y-center rg-15 p-15">
+        <form class="container x-center">
+          <input
+            class="b-0 br-10 p-10 bg-transparent text-white"
+            type="text"
+            placeholder="Search a city..."
+            value=""
+          />
+
+          <button
+            id="current-location-btn"
+            class="b-0 br-10 inactive"
+            type="button"
+          >
+            <!-- <img
+              src="https://egesiapres.github.io/weather-app/img/location.svg"
+            /> -->
+          </button>
+        </form>
+
+        <div
+          id="primary-div"
+          class="hidden"
+        >
+          <div class="container col-direction rg-15">
+            <!-- primary info -->
+            <div
+              id="city-main-info-div"
+              class="container col-direction"
+            >
+              <p
+                id="current-date-par"
+                class="hidden"
+              >
+                Month XX, hh:mm
+              </p>
+
+              <p
+                id="name-par"
+                class="text-medium text-center"
+              >
+                City
+              </p>
+
+              <p
+                id="position-details-par"
+                class="m-0 text-small text-center"
+              >
+                State, (COUNTRY)
+              </p>
+
+              <div
+                id="secondary-div"
+                class="hidden"
+              >
+                <div
+                  id="weather-main-img-div"
+                  class="container x-center"
+                >
+                  <img
+                    id="weather-main-img"
+                    class="m-5"
+                    src="https://egesiapres.github.io/weather-app/img/partly-cloudy-day.svg"
+                  />
+                </div>
+
+                <p
+                  id="weather-main-par"
+                  class="m-0 text-center text-medium"
+                >
+                  Weather
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div
+        id="tertiary-div"
+        class="hidden"
+      >
+        <hr class="m-0 bc-transparent" />
+
+        <section
+          id="scrollable-section"
+          class="container col-direction scrollable rg-15 p-15"
+        >
+          <!-- secondary info -->
+          <div
+            id="city-secondary-info-div"
+            class="b-1 br-15 bc-transparent bg-transparent"
+          >
+            <div class="container y-center">
+              <i class="wi wi-thermometer m-10 text-transparent"></i>
+
+              <p class="m-10 label text-transparent">TEMPERATURE</p>
+            </div>
+
+            <hr class="m-0 bc-transparent" />
+
+            <div class="container x-center cg-15 m-10">
+              <div>
+                <p
+                  id="perceived-temp-par"
+                  class="container x-center m-10 text-small"
+                >
+                  Feels like: XX°C
+                </p>
+
+                <p
+                  id="temp-par"
+                  class="cg-15 m-0 text-big text-center"
+                >
+                  XX°C
+                </p>
+
+                <div
+                  id="temp-deg-div"
+                  class="container x-center"
+                >
+                  <div class="container y-center">
+                    <img
+                      src="https://egesiapres.github.io/weather-app/img/thermometer-colder.svg"
+                      class="icon"
+                    />
+
+                    <p
+                      id="min-temp-par"
+                      class="m-0"
+                    >
+                      Min: XX°C
+                    </p>
+                  </div>
+
+                  <div class="container y-center">
+                    <img
+                      src="https://egesiapres.github.io/weather-app/img/thermometer-warmer.svg"
+                      class="icon"
+                    />
+                    <p
+                      id="max-temp-par"
+                      class="m-0"
+                    >
+                      Max: XX°C
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                id="temp-scale-div"
+                class="container col-direction x-center rg-15 p-10"
+              >
+                <label
+                  for="scale-select"
+                  class="m-0 text-small"
+                  >Select a temperature scale</label
+                >
+
+                <select
+                  name="scales"
+                  id="scale-select"
+                  class="br-5 p-2 text-black"
+                >
+                  <option value="celsius">Celsius (°C)</option>
+                  <option value="fahrenheit">Fahrenheit (°F)</option>
+                  <option value="kelvin">Kelvin (K)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="five-day-forecast-div"
+            class="hidden"
+          >
+            <div class="container y-center">
+              <i
+                class="wi wi-forecast-io-partly-cloudy-day m-10 text-transparent"
+              ></i>
+
+              <p class="m-10 label text-transparent">5-DAY FORECAST</p>
+            </div>
+
+            <hr class="m-0 bc-transparent" />
+
+            <div
+              id="forecast-div"
+              class="container scrollable"
+            >
+              <div class="container col-direction x-fit-content">
+                <div class="container col-direction rg-5 m-5">
+                  <p
+                    id="day-one-name-par"
+                    class="m-0 text-center"
+                  >
+                    Tomorrow
+                  </p>
+                  <p
+                    id="day-one-date-par"
+                    class="m-0 text-extra-small text-center"
+                  >
+                    Month XX
+                  </p>
+                </div>
+
+                <div class="container x-center">
+                  <img
+                    id="day-one-weather-img"
+                    src="img/partly-cloudy-day.svg"
+                    class="img-small"
+                  />
+                </div>
+
+                <p
+                  id="day-one-lh-temps-par"
+                  class="m-5 text-small text-center"
+                >
+                  XX - XX°C
+                </p>
+              </div>
+
+              <div class="container col-direction x-fit-content">
+                <div class="container col-direction rg-5 m-5">
+                  <p
+                    id="day-two-name-par"
+                    class="m-0 text-center"
+                  >
+                    Day 2
+                  </p>
+                  <p
+                    id="day-two-date-par"
+                    class="m-0 text-extra-small text-center"
+                  >
+                    Month XX
+                  </p>
+                </div>
+
+                <div class="container x-center">
+                  <img
+                    id="day-two-weather-img"
+                    src="img/partly-cloudy-day.svg"
+                    class="img-small"
+                  />
+                </div>
+
+                <p
+                  id="day-two-lh-temps-par"
+                  class="m-5 text-small text-center"
+                >
+                  XX - XX°C
+                </p>
+              </div>
+
+              <div class="container col-direction x-fit-content">
+                <div class="container col-direction rg-5 m-5">
+                  <p
+                    id="day-three-name-par"
+                    class="m-0 text-center"
+                  >
+                    Day 3
+                  </p>
+                  <p
+                    id="day-three-date-par"
+                    class="m-0 text-extra-small text-center"
+                  >
+                    Month XX
+                  </p>
+                </div>
+
+                <div class="container x-center">
+                  <img
+                    id="day-three-weather-img"
+                    src="img/partly-cloudy-day.svg"
+                    class="img-small"
+                  />
+                </div>
+
+                <p
+                  id="day-three-lh-temps-par"
+                  class="m-5 text-small text-center"
+                >
+                  XX - XX°C
+                </p>
+              </div>
+
+              <div class="container col-direction x-fit-content">
+                <div class="container col-direction rg-5 m-5">
+                  <p
+                    id="day-four-name-par"
+                    class="m-0 text-center"
+                  >
+                    Day 4
+                  </p>
+                  <p
+                    id="day-four-date-par"
+                    class="m-0 text-extra-small text-center"
+                  >
+                    Month XX
+                  </p>
+                </div>
+
+                <div class="container x-center">
+                  <img
+                    id="day-four-weather-img"
+                    src="img/partly-cloudy-day.svg"
+                    class="img-small"
+                  />
+                </div>
+
+                <p
+                  id="day-four-lh-temps-par"
+                  class="m-5 text-small text-center"
+                >
+                  XX - XX°C
+                </p>
+              </div>
+
+              <div class="container col-direction x-fit-content">
+                <div class="container col-direction rg-5 m-5">
+                  <p
+                    id="day-five-name-par"
+                    class="m-0 text-center"
+                  >
+                    Day 5
+                  </p>
+                  <p
+                    id="day-five-date-par"
+                    class="m-0 text-extra-small text-center"
+                  >
+                    Month XX
+                  </p>
+                </div>
+
+                <div class="container x-center">
+                  <img
+                    id="day-five-weather-img"
+                    src="img/partly-cloudy-day.svg"
+                    class="img-small"
+                  />
+                </div>
+
+                <p
+                  id="day-five-lh-temps-par"
+                  class="m-5 text-small text-center"
+                >
+                  XX - XX°C
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- tertiary info -->
+          <div
+            id="city-tertiary-info-div"
+            class="container cg-15 b-25"
+          >
+            <div
+              id="wind-div"
+              class="container col-direction b-1 br-15 bc-transparent box-medium bg-transparent"
+            >
+              <div>
+                <div class="container y-center">
+                  <i class="wi wi-strong-wind m-10 text-transparent"></i>
+                  <p class="m-10 label text-transparent">WIND</p>
+                </div>
+
+                <hr class="m-0 bc-transparent" />
+
+                <div
+                  id="wind-content-div"
+                  class="p-10"
+                >
+                  <div class="container y-center">
+                    <img
+                      id="wind-bft-icon"
+                      src="https://egesiapres.github.io/weather-app/img/wind.svg"
+                      class="mr-5 icon-small"
+                    />
+                    <p
+                      id="wind-speed-par"
+                      class="m-0"
+                    >
+                      Speed: XX km/h
+                    </p>
+                  </div>
+
+                  <div
+                    id="gust-speed-div"
+                    class="hidden"
+                  >
+                    <img
+                      id="gust-bft-icon"
+                      src="https://egesiapres.github.io/weather-app/img/wind.svg"
+                      class="mr-5 icon-small"
+                    />
+                    <p
+                      id="gust-speed-par"
+                      class="m-0"
+                    >
+                      Gust: XX km/h
+                    </p>
+                  </div>
+
+                  <div class="container y-center">
+                    <img
+                      src="https://egesiapres.github.io/weather-app/img/compass.svg"
+                      class="mr-5 icon-small"
+                    />
+
+                    <p
+                      id="wind-deg-par"
+                      class="m-0"
+                    >
+                      ↑ D
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              id="sys-div"
+              class="container col-direction b-1 br-15 bc-transparent box-medium bg-transparent"
+            >
+              <div>
+                <div class="container y-center">
+                  <i class="wi wi-horizon m-10 text-transparent"></i>
+
+                  <p class="m-10 label text-transparent">SUN</p>
+                </div>
+
+                <hr class="m-0 bc-transparent" />
+
+                <div class="p-10">
+                  <div class="container y-center">
+                    <img
+                      src="https://egesiapres.github.io/weather-app/img/sunrise.svg"
+                      class="mr-5 icon-small"
+                    />
+                    <p
+                      id="sunrise-par"
+                      class="m-0"
+                    >
+                      Sunrise: hh:mm
+                    </p>
+                  </div>
+
+                  <div class="container y-center">
+                    <img
+                      src="https://egesiapres.github.io/weather-app/img/sunset.svg"
+                      class="mr-5 icon-small"
+                    />
+
+                    <p
+                      id="sunset-par"
+                      class="m-0"
+                    >
+                      Sunset: hh:mm
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- quaternary info -->
+          <div
+            id="city-quaternary-info-div"
+            class="container cg-15 b-25"
+          >
+            <div
+              id="humidity-div"
+              class="container col-direction b-1 br-15 bc-transparent box-small bg-transparent"
+            >
+              <div class="container y-center">
+                <i class="wi wi-humidity m-10 text-transparent"></i>
+
+                <p class="m-10 label text-transparent">HUMIDITY</p>
+              </div>
+
+              <hr class="m-0 bc-transparent" />
+
+              <p
+                id="humidity-par"
+                class="m-10 text-center"
+              >
+                XX %
+              </p>
+            </div>
+
+            <div
+              id="air-div"
+              class="hidden"
+            >
+              <div class="container y-center">
+                <i class="wi wi-smog m-10 text-transparent"></i>
+
+                <p class="m-10 label text-transparent">AIR</p>
+              </div>
+
+              <hr class="m-0 bc-transparent" />
+
+              <p
+                id="air-aqi-par"
+                class="m-10 text-center"
+              >
+                AQI: XX
+              </p>
+            </div>
+
+            <div
+              id="pressure-div"
+              class="container col-direction b-1 br-15 bc-transparent box-small bg-transparent"
+            >
+              <div class="container y-center">
+                <i class="wi wi-barometer m-10 text-transparent"></i>
+                <p class="m-10 label text-transparent">PRESSURE</p>
+              </div>
+
+              <hr class="m-0 bc-transparent" />
+
+              <p
+                id="pressure-par"
+                class="m-10 text-center"
+              >
+                XX %
+              </p>
+            </div>
+
+            <div
+              id="visibility-div"
+              class="container flex col-direction b-1 br-15 bc-transparent box-small bg-transparent"
+            >
+              <div class="container y-center">
+                <i class="wi wi-dust m-10 text-transparent"></i>
+
+                <p class="m-10 label text-transparent">VISIBILITY</p>
+              </div>
+
+              <hr class="m-0 bc-transparent" />
+
+              <p
+                id="visibility-par"
+                class="m-10 text-center"
+              >
+                XX km
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <footer class="container x-center">
+          <a
+            href="#air-div"
+            class="m-0 text-small text-transparent"
+            ><i class="wi wi-direction-down m-10 ml-0 text-transparent"></i
+            >Scroll</a
+          >
+        </footer>
+      </div>
+
+      <div
+        id="error-div"
+        class="hidden"
+      >
+        <hr class="m-0 bc-transparent" />
+
+        <div class="p-10 br-10 error">
+          <p class="m-10 text-center">No location corresponding to:</p>
+
+          <p
+            id="error-par"
+            class="m-5 text-center text-medium"
+          >
+            "XXX"
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script
+      type="module"
+      src="js/script.js"
+    ></script>
+  </body>
+</html>
